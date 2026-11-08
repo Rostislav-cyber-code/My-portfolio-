@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Веброзробник — Створення сучасних сайтів</title>
+<meta name="description" content="Створюю сучасні, стильні та функціональні вебсайти для малого бізнесу та особистих проєктів. Landing page, сайти-візитки, адаптивна верстка.">
+
+<style>
+  :root {
+    --bg: #fafaf7;
+    --bg-alt: #f1f0eb;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --line: #e5e4de;
+    --accent: #1a1a1a;
+    --serif: 'Georgia', 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    padding: 28px 0;
+    position: sticky;
+    top: 0;
+    background: rgba(250, 250, 247, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-bottom-color: var(--line); }
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    letter-spacing: -0.3px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 14px;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 100px 0 120px;
+    position: relative;
+  }
+  .hero-label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(38px, 6vw, 72px);
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -1.5px;
+    margin-bottom: 40px;
+    max-width: 820px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .hero-lede {
+    font-size: clamp(16px, 1.8vw, 19px);
+    color: var(--muted);
+    max-width: 580px;
+    margin-bottom: 48px;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: #000; transform: translateY(-1px); }
+  .btn-ghost {
+    color: var(--text);
+    border-bottom: 1px solid var(--text);
+    padding: 4px 0;
+    border-radius: 0;
+  }
+  .btn-ghost:hover { opacity: 0.6; }
+
+  /* ---------- SECTION BASE ---------- */
+  section {
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: -0.8px;
+    margin-bottom: 60px;
+    max-width: 640px;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-text {
+    max-width: 680px;
+    font-size: clamp(16px, 1.8vw, 19px);
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .about-text em { font-style: italic; color: var(--muted); }
+
+  /* ---------- SERVICES ---------- */
+  .services-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .service-item {
+    padding: 40px 40px 40px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .service-item:nth-child(odd) {
+    border-right: 1px solid var(--line);
+    padding-right: 40px;
+  }
+  .service-item:nth-child(even) {
+    padding-left: 40px;
+  }
+  .service-num {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+  .service-body h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .service-body p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .process-item .step-num {
+    font-family: var(--serif);
+    font-size: 56px;
+    font-style: italic;
+    color: var(--line);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+  }
+  .process-item h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .process-item p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ---------- MANIFESTO / QUOTE ---------- */
+  .manifesto {
+    padding: 140px 0;
+    text-align: center;
+    background: var(--bg-alt);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .manifesto-text {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 64px);
+    line-height: 1.15;
+    letter-spacing: -1px;
+    font-weight: 400;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .manifesto-text em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* ---------- CONTACT (без контактних даних) ---------- */
+  .contact-headline {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -1.2px;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .contact-lede {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+  .contact-note {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text);
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 520px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer .foot-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+  }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 768px) {
+    .container { padding: 0 22px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 0 80px; }
+    section { padding: 70px 0; }
+    .services-list { grid-template-columns: 1fr; }
+    .service-item, .service-item:nth-child(odd), .service-item:nth-child(even) {
+      padding: 28px 0;
+      border-right: none;
+    }
+    .process-grid { grid-template-columns: 1fr; gap: 32px; }
+    .process-item .step-num { font-size: 44px; }
+    .manifesto { padding: 90px 0; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
+    .hero-cta .btn-primary { text-align: center; }
+    .hero-cta .btn-ghost { text-align: center; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <div class="logo">Веброзробник</div>
+    <div class="nav-links">
+      <a href="#about">Про мене</a>
+      <a href="#services">Послуги</a>
+      <a href="#process">Процес</a>
+      <a href="#contact">Співпраця</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Портфоліо · 2026</div>
+    <h1>Створюю сучасні сайти,<br>які <em>працюють</em> на бізнес.</h1>
+    <p class="hero-lede">
+      Поєдную естетику, зручність використання та функціональність,
+      щоб кожен сайт відповідав потребам клієнта.
+    </p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-primary">Що я пропоную</a>
+      <a href="#about" class="btn btn-ghost">Про мене →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">Про мене</div>
+    <div class="reveal">
+      <p class="about-text">
+        Я веброзробник, який створює стильні та функціональні вебсайти для
+        малого бізнесу та особистих проєктів. Моя мета — <em>поєднати естетику,
+        зручність використання та функціональність</em>, щоб кожен сайт
+        відповідав потребам клієнта.
+      </p>
+      <p class="about-text">
+        Відкритий до нових проєктів та співпраці.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="container">
+    <div class="section-label">Послуги</div>
+    <h2 class="section-title reveal">Що я пропоную</h2>
+    <div class="services-list">
+      <div class="service-item reveal">
+        <span class="service-num">01</span>
+        <div class="service-body">
+          <h3>Сайти для бізнесу</h3>
+          <p>Створення сайтів для малого бізнесу та особистих проєктів.</p>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">02</span>
+        <div class="service-body">
+          <h3>Дизайн та верстка</h3>
+          <p>Сучасний дизайн та адаптивна верстка під усі пристрої.</p>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">03</span>
+        <div class="service-body">
+          <h3>Landing & візитки</h3>
+          <p>Landing page та сайти-візитки з фокусом на конверсію.</p>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">04</span>
+        <div class="service-body">
+          <h3>Індивідуальний підхід</h3>
+          <p>Індивідуальний підхід до кожного замовлення.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+  <div class="container">
+    <div class="section-label">Процес</div>
+    <h2 class="section-title reveal">Як ми працюємо</h2>
+    <div class="process-grid">
+      <div class="process-item reveal">
+        <div class="step-num">01</div>
+        <h4>Бриф</h4>
+        <p>Обговорюємо ідею, цілі та потреби вашого бізнесу.</p>
+      </div>
+      <div class="process-item reveal">
+        <div class="step-num">02</div>
+        <h4>Дизайн</h4>
+        <p>Створюю макет майбутнього сайту з урахуванням айдентики.</p>
+      </div>
+      <div class="process-item reveal">
+        <div class="step-num">03</div>
+        <h4>Запуск</h4>
+        <p>Верстаю, тестую на всіх пристроях і передаю готовий сайт.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<div class="manifesto">
+  <div class="container">
+    <p class="manifesto-text reveal">
+      Естетика. <em>Функціональність.</em> Результат.
+    </p>
+  </div>
+</div>
+
+<!-- ============ CONTACT / СПІВПРАЦЯ ============ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Співпраця</div>
+    <h2 class="contact-headline reveal">Відкритий до<br>нових проєктів.</h2>
+    <p class="contact-lede reveal">
+      Розкажіть про свою ідею — я допоможу перетворити її на сучасний
+      сайт, що працює на ваш результат.
+    </p>
+    <p class="contact-note reveal">
+      Зв'язок — через форму зворотного зв'язку на сторінці проєкту.
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
+    <div class="foot-mark">© 2026 · Веброзробник</div>
+    <div>Створено з увагою до деталей</div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
